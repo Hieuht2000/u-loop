@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>u-loop — a tiny one-button racer</title>
+<meta name="description" content="u-loop: a minimalist one-button time-trial racer. Three laps, best average wins. Pick a vehicle, chase records, share challenges.">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="wrap">
+  <canvas id="game"></canvas>
+
+  <!-- ===== Menu ===== -->
+  <div id="menu">
+    <div class="langs" id="langRow"></div>
+    <h1>u-l<span class="o">o</span><span class="o">o</span>p</h1>
+    <p class="sub" id="menuSub"></p>
+
+    <div class="secLabel" id="lblVehicle"></div>
+    <div class="cars" id="carList"></div>
+
+    <div class="secLabel" id="lblTracks"></div>
+    <div class="tracks" id="trackList"></div>
+
+    <p class="foot" id="menuFoot"></p>
+  </div>
+
+  <!-- ===== HUD ===== -->
+  <div class="hud" id="hud">
+    <div class="top">
+      <div class="badges">
+        <div class="badge" id="trackBadge">Track</div>
+        <div class="badge ghostBadge" id="carBadge">Car</div>
+      </div>
+      <div class="times">
+        <div class="cur" id="curTime">0.000</div>
+        <div class="row"><span id="lblLast">last</span><b id="lastTime">—</b></div>
+        <div class="row best"><span id="lblBest">best</span><b id="bestTime">—</b></div>
+        <div class="row"><span id="lblLap">lap</span><b id="lapCount">0/3</b></div>
+      </div>
+    </div>
+    <div class="hudBtns">
+      <button class="btn" id="backBtn">menu</button>
+      <button class="btn" id="hudMute">🔊</button>
+      <button class="btn accent" id="saveBestBtn" hidden>★</button>
+    </div>
+    <div class="hint" id="hint"></div>
+    <div id="count"></div>
+    <div id="toast">new best average!</div>
+    <div id="wrongway">wrong way</div>
+  </div>
+
+  <!-- ===== Save record overlay (auto-pops after 3 laps) ===== -->
+  <div class="overlay" id="saveOverlay">
+    <div class="panel">
+      <h2 id="saveTitle">Save your record</h2>
+      <p class="ptime" id="saveTime">0.000</p>
+      <p class="pmeta" id="saveMeta"></p>
+      <div class="lapsRow" id="saveLaps"></div>
+      <canvas id="lapSnap"></canvas>
+      <input type="text" id="nameInput" maxlength="16" placeholder="your name" autocomplete="off">
+      <div class="prow">
+        <button class="btn" id="saveCancel">skip</button>
+        <button class="btn accent" id="saveConfirm">save record</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Results overlay ===== -->
+  <div class="overlay" id="resultsOverlay">
+    <div class="panel">
+      <h2 id="resTitle">Race complete!</h2>
+      <div class="lapsCol" id="resLaps"></div>
+      <p class="pmeta" id="resAvgLbl">average</p>
+      <p class="ptime" id="resAvg">0.000</p>
+      <div class="prow">
+        <button class="btn" id="resMenu">menu</button>
+        <button class="btn accent" id="resAgain">race again</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Record board overlay ===== -->
+  <div class="overlay" id="boardOverlay">
+    <div class="panel wide">
+      <h2 id="boardTitle">Records</h2>
+      <ol class="board" id="boardList"></ol>
+      <div class="prow">
+        <button class="btn" id="boardClose">close</button>
+        <button class="btn" id="boardShare">copy challenge link</button>
+      </div>
+      <p class="pnote" id="boardNote"></p>
+    </div>
+  </div>
+
+  <!-- ===== SwissPass check (the SBB easter egg) ===== -->
+  <div class="overlay" id="sbbOverlay">
+    <div class="panel sbb">
+      <img src="assets/swisspass-cat.png" alt="Conductor" class="sbbCat">
+      <h2 id="sbbTitle">«Bitte SwissPass scannen!»</h2>
+      <p class="pmeta" id="sbbSub">SBB Billettkontrolle&nbsp;🎫 — Der Kondukteur wartet.</p>
+      <div class="prow">
+        <button class="btn accent" id="sbbOk">OK, OK…</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- plain ordered scripts: works on GitHub Pages AND when opening the file directly -->
+<script src="js/utils.js"></script>
+<script src="js/config.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/online.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/tracks.js"></script>
+<script src="js/cars.js"></script>
+<script src="js/scenery.js"></script>
+<script src="js/render.js"></script>
+<script src="js/game.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

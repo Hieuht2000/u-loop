@@ -1,0 +1,170 @@
+"use strict";
+/* u-loop · i18n.js — menu/HUD translations.
+   Keys fall back to English if a language misses one. */
+
+UL.i18n = (() => {
+  const D = {
+    en: {
+      sub: "<b>Hold</b> to turn left, <b>release</b> to turn right. Three laps — your best average counts.",
+      yourVehicle: "your DUT", tracks: "scenarios", race: "race", records: "records",
+      best: "best", last: "last", lap: "lap",
+      hint: "<b>hold</b> = left turn · <b>release</b> = right turn",
+      foot1: "<kbd>space</kbd> / tap / click to steer · <kbd>R</kbd> restart run · <kbd>esc</kbd> menu",
+      foot2: "Records are 3-lap averages saved in this browser. Share a challenge link so friends can chase your time.",
+      saveTitle: "Save your record", namePH: "your name", saveBtn: "save record", skip: "skip",
+      close: "close", copyLink: "copy challenge link", noRecords: "no records yet — set one!",
+      boardNote: "🏁 = record received from a challenge link. Boards live in this browser — copy a challenge link to send your best to a friend.",
+      needRun: "Finish a 3-lap run on this track first — then your challenge link carries your best average.",
+      copied: "Challenge link copied! Send it to a friend — opening it puts your time on their board.",
+      copyFail: "Couldn't copy automatically — here it is: ",
+      challengeMsg: "{n} challenged you on {t} — beat {ms}!",
+      toastBest: "new best average!", wrongWay: "wrong way",
+      resTitle: "Race complete!", average: "average", again: "race again", menu: "menu",
+      loadingGlobal: "loading the shared board…",
+      globalFail: "couldn't reach the shared board — showing local records",
+      globalNote: "🌍 shared board — every player's records for this track, in one place.",
+      submitted: "record sent to the shared board!",
+      sbbTitle: "«Please scan your SwissPass!»",
+      sbbSub: "SBB ticket inspection 🎫 — the conductor is waiting.",
+      sbbOk: "OK, OK…",
+      lockedHint: "🔒 finish a race on another scenario to unlock"
+    },
+    it: {
+      sub: "<b>Tieni premuto</b> per girare a sinistra, <b>rilascia</b> per andare a destra. Tre giri — conta la media migliore.",
+      yourVehicle: "il tuo DUT", tracks: "scenari", race: "gara", records: "record",
+      best: "migliore", last: "ultimo", lap: "giro",
+      hint: "<b>premi</b> = sinistra · <b>rilascia</b> = destra",
+      foot1: "<kbd>spazio</kbd> / tocca / clicca per sterzare · <kbd>R</kbd> ricomincia · <kbd>esc</kbd> menu",
+      foot2: "I record sono medie su 3 giri salvate in questo browser. Condividi un link sfida con gli amici.",
+      saveTitle: "Salva il tuo record", namePH: "il tuo nome", saveBtn: "salva record", skip: "salta",
+      close: "chiudi", copyLink: "copia link sfida", noRecords: "nessun record — fai il primo!",
+      boardNote: "🏁 = record ricevuto da un link sfida. I tabelloni vivono in questo browser — copia un link sfida per inviare il tuo tempo.",
+      needRun: "Completa prima una gara di 3 giri su questo tracciato.",
+      copied: "Link sfida copiato! Invialo a un amico.",
+      copyFail: "Copia non riuscita — eccolo: ",
+      challengeMsg: "{n} ti ha sfidato su {t} — batti {ms}!",
+      toastBest: "nuova miglior media!", wrongWay: "contromano",
+      resTitle: "Gara completata!", average: "media", again: "corri ancora", menu: "menu",
+      loadingGlobal: "carico la classifica condivisa…",
+      globalFail: "classifica condivisa non raggiungibile — mostro i record locali",
+      globalNote: "🌍 classifica condivisa — i record di tutti per questo tracciato, in un unico posto.",
+      submitted: "record inviato alla classifica condivisa!",
+      sbbTitle: "«Scansioni il suo SwissPass, prego!»",
+      sbbSub: "Controllo biglietti SBB 🎫 — il controllore sta aspettando.",
+      sbbOk: "Va bene, va bene…",
+      lockedHint: "🔒 completa una gara in un altro scenario per sbloccare"
+    },
+    es: {
+      sub: "<b>Mantén</b> para girar a la izquierda, <b>suelta</b> para ir a la derecha. Tres vueltas — cuenta tu mejor media.",
+      yourVehicle: "tu DUT", tracks: "escenarios", race: "correr", records: "récords",
+      best: "mejor", last: "última", lap: "vuelta",
+      hint: "<b>mantén</b> = izquierda · <b>suelta</b> = derecha",
+      foot1: "<kbd>espacio</kbd> / toca / clic para girar · <kbd>R</kbd> reiniciar · <kbd>esc</kbd> menú",
+      foot2: "Los récords son medias de 3 vueltas guardadas en este navegador. Comparte un enlace de desafío con tus amigos.",
+      saveTitle: "Guarda tu récord", namePH: "tu nombre", saveBtn: "guardar récord", skip: "omitir",
+      close: "cerrar", copyLink: "copiar enlace de desafío", noRecords: "sin récords todavía — ¡haz el primero!",
+      boardNote: "🏁 = récord recibido por enlace de desafío. Los tablones viven en este navegador — copia un enlace para enviar tu tiempo.",
+      needRun: "Termina primero una carrera de 3 vueltas en este circuito.",
+      copied: "¡Enlace copiado! Envíaselo a un amigo.",
+      copyFail: "No se pudo copiar — aquí está: ",
+      challengeMsg: "¡{n} te desafió en {t} — bate {ms}!",
+      toastBest: "¡nueva mejor media!", wrongWay: "sentido contrario",
+      resTitle: "¡Carrera completada!", average: "media", again: "correr otra vez", menu: "menú",
+      loadingGlobal: "cargando la tabla compartida…",
+      globalFail: "no se pudo acceder a la tabla compartida — mostrando récords locales",
+      globalNote: "🌍 tabla compartida — los récords de todos para este circuito, en un solo lugar.",
+      submitted: "¡récord enviado a la tabla compartida!",
+      sbbTitle: "«¡Escanee su SwissPass, por favor!»",
+      sbbSub: "Control de billetes SBB 🎫 — el revisor está esperando.",
+      sbbOk: "Vale, vale…",
+      lockedHint: "🔒 termina una carrera en otro escenario para desbloquear"
+    },
+    el: {
+      sub: "<b>Κράτα</b> για αριστερά, <b>άφησε</b> για δεξιά. Τρεις γύροι — μετράει ο καλύτερος μέσος όρος.",
+      yourVehicle: "το DUT σου", tracks: "σενάρια", race: "αγώνας", records: "ρεκόρ",
+      best: "καλύτερο", last: "τελευταίος", lap: "γύρος",
+      hint: "<b>κράτα</b> = αριστερά · <b>άφησε</b> = δεξιά",
+      foot1: "<kbd>space</kbd> / άγγιγμα / κλικ για στρίψιμο · <kbd>R</kbd> επανεκκίνηση · <kbd>esc</kbd> μενού",
+      foot2: "Τα ρεκόρ είναι μέσοι όροι 3 γύρων σε αυτόν τον browser. Μοιράσου σύνδεσμο πρόκλησης με φίλους.",
+      saveTitle: "Αποθήκευσε το ρεκόρ σου", namePH: "το όνομά σου", saveBtn: "αποθήκευση", skip: "παράλειψη",
+      close: "κλείσιμο", copyLink: "αντιγραφή συνδέσμου", noRecords: "κανένα ρεκόρ ακόμα!",
+      boardNote: "🏁 = ρεκόρ από σύνδεσμο πρόκλησης. Οι πίνακες ζουν σε αυτόν τον browser.",
+      needRun: "Ολοκλήρωσε πρώτα έναν αγώνα 3 γύρων σε αυτή την πίστα.",
+      copied: "Ο σύνδεσμος αντιγράφηκε! Στείλ' τον σε φίλο.",
+      copyFail: "Αποτυχία αντιγραφής — ορίστε: ",
+      challengeMsg: "Ο/Η {n} σε προκάλεσε στην πίστα {t} — νίκησε το {ms}!",
+      toastBest: "νέος καλύτερος μέσος όρος!", wrongWay: "λάθος κατεύθυνση",
+      resTitle: "Ο αγώνας ολοκληρώθηκε!", average: "μέσος όρος", again: "ξανά", menu: "μενού",
+      loadingGlobal: "φόρτωση κοινού πίνακα…",
+      globalFail: "ο κοινός πίνακας δεν είναι διαθέσιμος — εμφανίζονται τοπικά ρεκόρ",
+      globalNote: "🌍 κοινός πίνακας — τα ρεκόρ όλων για αυτή την πίστα, σε ένα μέρος.",
+      submitted: "το ρεκόρ στάλθηκε στον κοινό πίνακα!",
+      sbbTitle: "«Σκανάρετε το SwissPass σας, παρακαλώ!»",
+      sbbSub: "Έλεγχος εισιτηρίων SBB 🎫 — ο ελεγκτής περιμένει.",
+      sbbOk: "Εντάξει, εντάξει…",
+      lockedHint: "🔒 ολοκλήρωσε έναν αγώνα σε άλλο σενάριο για ξεκλείδωμα"
+    },
+    fi: {
+      sub: "<b>Pidä pohjassa</b> kääntyäksesi vasemmalle, <b>vapauta</b> oikealle. Kolme kierrosta — paras keskiarvo ratkaisee.",
+      yourVehicle: "sinun DUT", tracks: "skenaariot", race: "aja", records: "ennätykset",
+      best: "paras", last: "viimeisin", lap: "kierros",
+      hint: "<b>pidä</b> = vasen · <b>vapauta</b> = oikea",
+      foot1: "<kbd>välilyönti</kbd> / napauta / klikkaa ohjataksesi · <kbd>R</kbd> uudelleen · <kbd>esc</kbd> valikko",
+      foot2: "Ennätykset ovat 3 kierroksen keskiarvoja tässä selaimessa. Jaa haastelinkki kavereille.",
+      saveTitle: "Tallenna ennätyksesi", namePH: "nimesi", saveBtn: "tallenna ennätys", skip: "ohita",
+      close: "sulje", copyLink: "kopioi haastelinkki", noRecords: "ei ennätyksiä vielä — tee ensimmäinen!",
+      boardNote: "🏁 = haastelinkistä saatu ennätys. Taulut elävät tässä selaimessa — kopioi haastelinkki lähettääksesi aikasi.",
+      needRun: "Aja ensin 3 kierroksen suoritus tällä radalla.",
+      copied: "Haastelinkki kopioitu! Lähetä se kaverille.",
+      copyFail: "Kopiointi epäonnistui — tässä se on: ",
+      challengeMsg: "{n} haastoi sinut radalla {t} — voita {ms}!",
+      toastBest: "uusi paras keskiarvo!", wrongWay: "väärä suunta",
+      resTitle: "Kisa valmis!", average: "keskiarvo", again: "aja uudelleen", menu: "valikko",
+      loadingGlobal: "ladataan jaettua taulua…",
+      globalFail: "jaettua taulua ei tavoitettu — näytetään paikalliset ennätykset",
+      globalNote: "🌍 jaettu taulu — kaikkien pelaajien ennätykset tälle radalle, samassa paikassa.",
+      submitted: "ennätys lähetetty jaettuun tauluun!",
+      sbbTitle: "«Skannaa SwissPass, kiitos!»",
+      sbbSub: "SBB:n lipuntarkastus 🎫 — konduktööri odottaa.",
+      sbbOk: "Selvä, selvä…",
+      lockedHint: "🔒 avaa ajamalla kisa toisessa skenaariossa"
+    },
+    vi: {
+      sub: "<b>Giữ</b> để rẽ trái, <b>thả</b> để rẽ phải. Ba vòng — tính trung bình tốt nhất.",
+      yourVehicle: "DUT của bạn", tracks: "kịch bản", race: "đua", records: "kỷ lục",
+      best: "tốt nhất", last: "gần nhất", lap: "vòng",
+      hint: "<b>giữ</b> = rẽ trái · <b>thả</b> = rẽ phải",
+      foot1: "<kbd>space</kbd> / chạm / nhấp để lái · <kbd>R</kbd> chạy lại · <kbd>esc</kbd> menu",
+      foot2: "Kỷ lục là trung bình 3 vòng, lưu trong trình duyệt này. Chia sẻ liên kết thách đấu để bạn bè đua với thời gian của bạn.",
+      saveTitle: "Lưu kỷ lục của bạn", namePH: "tên của bạn", saveBtn: "lưu kỷ lục", skip: "bỏ qua",
+      close: "đóng", copyLink: "sao chép liên kết thách đấu", noRecords: "chưa có kỷ lục — hãy lập kỷ lục đầu tiên!",
+      boardNote: "🏁 = kỷ lục nhận từ liên kết thách đấu. Bảng xếp hạng lưu trong trình duyệt này — sao chép liên kết để gửi thời gian của bạn cho bạn bè.",
+      needRun: "Hãy hoàn thành một lượt đua 3 vòng trên đường đua này trước.",
+      copied: "Đã sao chép liên kết thách đấu! Gửi cho bạn bè nhé.",
+      copyFail: "Không thể tự động sao chép — đây là liên kết: ",
+      challengeMsg: "{n} thách đấu bạn trên {t} — hãy vượt qua {ms}!",
+      toastBest: "trung bình tốt nhất mới!", wrongWay: "sai hướng",
+      resTitle: "Hoàn thành cuộc đua!", average: "trung bình", again: "đua lại", menu: "menu",
+      loadingGlobal: "đang tải bảng xếp hạng chung…",
+      globalFail: "không kết nối được bảng chung — hiển thị kỷ lục cục bộ",
+      globalNote: "🌍 bảng chung — kỷ lục của mọi người cho đường đua này, ở một nơi.",
+      submitted: "đã gửi kỷ lục lên bảng chung!",
+      sbbTitle: "«Vui lòng quét SwissPass của bạn!»",
+      sbbSub: "Soát vé SBB 🎫 — người soát vé đang chờ.",
+      sbbOk: "Rồi, rồi…",
+      lockedHint: "🔒 hoàn thành một cuộc đua ở kịch bản khác để mở khóa"
+    }
+  };
+
+  let lang = UL.store.get("uloop.lang") || "en";
+  if (!D[lang]) lang = "en";
+
+  function t(key, vars) {
+    let s = (D[lang] && D[lang][key]) || D.en[key] || key;
+    if (vars) for (const v in vars) s = s.replace("{" + v + "}", vars[v]);
+    return s;
+  }
+  function set(l) { if (D[l]) { lang = l; UL.store.set("uloop.lang", l); } }
+
+  return { t, set, get lang() { return lang; }, codes: Object.keys(D) };
+})();
