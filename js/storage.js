@@ -30,10 +30,26 @@ UL.records = (() => {
     catch (e) { return []; }
   }
 
+  // one row per player+vehicle on each map: adding a worse time than an
+  // existing entry is ignored, a better one replaces it
+  function entryKey(e) {
+    const car = UL.carById ? UL.carById(e.c).id : (e.c || "");
+    return String(e.n || "").trim().toLowerCase() + "|" + car;
+  }
+
   function addToBoard(id, entry) {
     const b = board(id);
-    const dup = b.some(e => e.n === entry.n && Math.round(e.ms) === Math.round(entry.ms));
-    if (!dup) b.push(entry);
+    const key = entryKey(entry);
+    const i = b.findIndex(e => entryKey(e) === key);
+    if (i >= 0) {
+      if (b[i].ms <= entry.ms) {
+        // existing record is equal or better — keep it
+        UL.store.set(boardKey(id), JSON.stringify(b));
+        return b;
+      }
+      b.splice(i, 1);
+    }
+    b.push(entry);
     b.sort((a, c) => a.ms - c.ms);
     b.length = Math.min(b.length, MAX_BOARD);
     UL.store.set(boardKey(id), JSON.stringify(b));
